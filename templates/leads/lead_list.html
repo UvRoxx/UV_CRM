@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="{% url 'leads:lead-create' %}">Create Leads</a>
+    <hr>
+    <h1>These are all our leads</h1>
+    <table class="table-fixed">
+
+        <thead>
+        <tr>
+            <th class="w-1/2 px-4 py-2">Company Name</th>
+            <th class="w-1/4 px-4 py-2">URL</th>
+            <th class="w-1/4 px-4 py-2">Status(Assigned/Un-Assigned)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lead in leads %}
+
+            <tr>
+                <td class="border px-4 py-2 ">
+                    <a href="{% url 'leads:lead-detail' lead.id %}">
+                        {{ lead.name }}
+                    </a></td>
+                <td class="border px-4 py-2"><a href="{{ lead.url }}">{{ lead.url }}</a></td>
+                {% if lead.agent != None %}
+                    <td class="border px-4 py-2">
+                        <a href="{% url 'leads:lead-update' lead.id %}">
+
+                            <i style="color: green" class="far fa-check-circle"></i>
+                        </a>
+                    </td>
+                {% else %}
+
+                    <td class="border px-4 py-2">
+                        <a href="{% url 'leads:lead-update' lead.id %}">
+                            <i class="fas fa-user-edit"></i>
+                        </a>
+                    </td>
+                    </td>
+
+                {% endif %}
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+
+
+
